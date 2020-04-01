@@ -8,7 +8,15 @@ import java.util.ArrayList;
 public class RankForecast {
 	private ArrayList<String> rankedList = new ArrayList<String>();
 	
-	public RankForecast() {
-		
+	public ArrayList<String> getRankedList() {
+		return rankedList;
 	}
+	
+	public RankForecast(ArrayList<String> weatherList) {
+		this.rankedList = weatherList;
+	}
+
+	
+	
+	
 }
