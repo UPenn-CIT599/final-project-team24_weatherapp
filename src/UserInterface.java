@@ -1,3 +1,9 @@
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -71,7 +77,7 @@ public class UserInterface {
     /**
      * Method to handle when user input is to use an existing Location List
      */
-    public void useExisting() {
+    public void useExistingList() {
         
     }
     
@@ -82,12 +88,57 @@ public class UserInterface {
         
     }
     
+    /**
+     * Method to handle when user input is to edit an existing Location List
+     */
+    public void editList() {
+        
+    }
     
+    /**
+     * Method looks into Working Directory for files with .txt or .json
+     * files. Print a numbered list of the those files. 
+     * And creates a HashMap of the files. 
+     * <p>
+     * Key = number in list <br>
+     * Value = filename
+     * @return HashMap with numbered filenames
+     */
+    public HashMap<Integer, String> filesInDir() {
+        Path currentPath = Paths.get(""); // obtains the Working Directory
+        String s = currentPath.toAbsolutePath().toString(); // converts Working Directory to string
+        System.out.println("Within the location <" + s + ">, "
+                + "\nthe following potential 'Location List' files were found: ");
+
+        File f = new File(s); // Instantiates the File class 
+        String[] fileNames = f.list(); // .list method provides a full list of files at passed location
+        
+        // Creating HashMap to hold the filenames that match extensions
+        HashMap<Integer, String> fileList = new HashMap<Integer, String>();
+                
+        int num = 1; // Used to create numbered list and the Key for HashMap
+        for (int i = 0; i < fileNames.length; i++) {
+            String file = fileNames[i];
+            
+            // Checks each file name to see if it contains the extensions
+            if (file.contains(".txt") || file.contains(".json")) {
+                System.out.println("   " + num + ". " + file); // prints a numbered list
+                fileList.put(num, file); // add filename to HashMap
+                num++;
+            }
+        }
+        return fileList;
+
+    }
     
     public static void main(String[] args) {
         UserInterface ui = new UserInterface();
-        ui.welcome();
-        ui.selection();
+//        ui.welcome();
+//        ui.selection();
+        
+        ui.filesInDir();
+        
+        
     }
 
 }
